@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Helper</title>
+<style>
+.color-red { color: red }
+.color-blue { color: blue }
+.color-green { color: green }
+.text-bold { font-weight: bold }
+.text-italic { font-style: italic }
+.text-underline { text-decoration: underline }
+</style>
+<script>
+var class_helper = function (el) {
+    return {
+        el: el,
+        add: function (klassName) {
+            if (this.is_exists(klassName)) return;
+
+            this.el.className+=' '+klassName;
+            this.trim();
+        },
+        remove: function (klassName) {
+            new_klassName = '';
+            iterator = this.el.classList.values();
+            for (let klass of iterator) {
+                if (klass == klassName) continue;
+                new_klassName+=klass+' ';
+            }
+            this.el.className = new_klassName;
+            this.trim();
+        },
+        is_exists: function (klassName) {
+            // check class name exists
+            return this.el.classList.contains(klassName);
+        },
+        trim: function () {
+            this.el.className = this.el.className.trim();
+        }
+    }
+}
+</script>
+</head>
+<body>
+
+    <p>This is a paragraph.</p>
+
+    <small>* in 3 seconds the <code>text-bold</code> class will removed</small>
+
+<script>
+el = document.querySelector('p');
+
+// USAGE
+class_helper(el).add('text-bold');
+class_helper(el).add('text-italic');
+
+setTimeout(() => {
+    class_helper(el).remove('text-bold');
+}, 3000);
+</script>
+
+</body>
+</html>
