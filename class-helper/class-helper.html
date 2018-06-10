@@ -15,6 +15,13 @@
 var class_helper = function (el) {
     return {
         el: el,
+        toggle: function (klassName) {
+            if (this.is_exists(klassName)) {
+                this.remove(klassName);
+            } else {
+                this.add(klassName);
+            }
+        },
         add: function (klassName) {
             if (this.is_exists(klassName)) return;
 
